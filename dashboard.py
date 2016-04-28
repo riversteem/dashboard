@@ -104,12 +104,12 @@ for k,v in outvotes.items():
   print("%s. %s %s<BR>" % (i, k, v[0]))
   i = i + 1
 
-i = 1
+i=1
 print("</td><td valign='top'><b>Votes For You:</b><BR><BR>")
 for k,v in invotes.items():
   if v[0] == True:
     print("%s. %s<BR>" % (i,k))
-  i = i + 1
+    i = i + 1
 
 i=1
 print("</td><td valign='top'><b>No Longer Support You:</b><BR><BR>")
@@ -117,4 +117,4 @@ for k,v in invotes.items():
   if v[0] == False:
     print("%s. %s<BR>" % (i,k))
     i = i + 1
-
+print("<meta http-equiv='Refresh' content='10'>")
