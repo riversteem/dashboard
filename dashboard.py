@@ -14,7 +14,7 @@ client = SteemClient(Config)
 account = "riverhead"
 miners = ["riverhead","riverhead2","riverhead3","riverhead4","riverhead5","mecon"]
 #os.system('clear')
-print("<HTML><BODY style='backgroup-color:lighgray;'><table border='1' cellpadding='10'>")
+print("<HTML><BODY style='backgroup-color:lightgray;'><table border='1' cellpadding='10'>")
 print("<td valign='top' ><b>Active Witnesses:</b><BR><BR>")
 
 
