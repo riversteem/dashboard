@@ -12,7 +12,7 @@ class Config():
 client = SteemClient(Config)
 
 account = "riverhead"
-miners = ["riverhead","riverhead2","riverhead3","riverhead4","riverhead5","mecon"]
+miners = ["riverhead","riverhead2","riverhead3","riverhead4","riverhead5","mecon", "jamesreidy"]
 #os.system('clear')
 print("<HTML><BODY style='background-color:lightgrey;'><table border='1' cellpadding='10'>")
 print("<td valign='top' ><b>Active Witnesses:</b><BR><BR>")
@@ -32,7 +32,11 @@ position = 1
 all_steem = 0
 
 for miner in miners:
-  miner_info = client.rpc.get_account(miner)
+  try:
+    miner_info = client.rpc.get_account(miner)
+  except :
+    print("<b>%s</b> has not been mined yet.<BR><BR>" % miner)
+    break
   chain_info = client.rpc.info()
   witness_info = client.rpc.get_witness(miner)
   total_vesting_fund_steem = float(chain_info["total_vesting_fund_steem"][:-5])
@@ -40,7 +44,7 @@ for miner in miners:
   balance                  = float(miner_info["vesting_shares"][:-5])
   total_balance            = round(((total_vesting_fund_steem / total_vesting_shares) * balance), 3)
   all_steem                = all_steem + total_balance
-  print("%s votes: %s<BR>" % (miner, witness_info["votes"]))
+  print("<b>%s</b> votes: %s<BR>" % (miner, witness_info["votes"]))
   print("Last block signed: %s<BR>" % witness_info["last_confirmed_block_num"])
   print("%s | %s | %s<br><BR>" % (total_balance , miner_info["balance"], miner_info["sbd_balance"]))
 
