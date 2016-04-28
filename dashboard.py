@@ -12,7 +12,7 @@ class Config():
 client = SteemClient(Config)
 
 account = "riverhead"
-miners = ["riverhead","riverhead2","riverhead3","riverhead4","riverhead5","mecon", "jamesreidy", "riversteem"]
+miners = ["riverhead","riverhead2","riverhead3","riverhead4","riverhead5","mecon", "jamesreidy", "riversteem", "steemhead"]
 #os.system('clear')
 print("<HTML><BODY style='background-color:lightgrey;'><table border='1' cellpadding='10'>")
 print("<td valign='top' ><b>Active Witnesses:</b><BR><BR>")
@@ -48,15 +48,16 @@ for miner in miners:
     print("<b>%s</b> has not been mined yet.<BR><BR>" % miner)
 
 print("Head Block: %s <BR>"%chain_info["head_block_number"])
-print("Total STEEM: %s\n" % all_steem)
+print("Total STEEM: %s" % all_steem)
 
 print("</td><td valign='top' width=200><b>Mining Queue:</b><BR><BR>")
-for miner in miner_queue:
-  if miner == account or miner == 'mecon' or miner[:-1] == account:
-    print("%d : %s<BR>\n" % (position, miner ))
-  else:
-    position = position + 1
-print("</td>")
+for miner in miners:
+  for m in miner_queue:
+    if m == miner :
+      print("%d : %s<BR>\n" % (position, miner ))
+    else:
+      position = position + 1
+  print("</td>")
 
 outvotes = {}
 invotes = {}
