@@ -101,7 +101,7 @@ while stopsearch == False:
 i=1
 print("<td valign='top'><b>You Vote For:</b><BR><BR>")
 for k,v in outvotes.items():
-  print("%s. %s %s<BR>" % (i, k))
+  print("%s. %s<BR>" % (i, k))
   i = i + 1
 
 i=1
