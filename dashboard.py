@@ -52,12 +52,17 @@ print("Total STEEM: %s" % all_steem)
 
 print("</td><td valign='top' width=200><b>Mining Queue:</b><BR><BR>")
 for miner in miners:
+  is_in_queue = 0
   for m in miner_queue:
     if m == miner :
-      print("%d : %s<BR>\n" % (position, miner ))
+      is_in_queue = 1
+      print("<b>%d : %s</b><BR>" % (position, miner ))
+      position = position + 1
     else:
       position = position + 1
-  print("</td>")
+  if is_in_queue == 0:
+    print("NA : %s<BR>" % (miner)) 
+print("</td>")
 
 outvotes = {}
 invotes = {}
