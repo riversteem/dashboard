@@ -41,14 +41,13 @@ for miner in miners:
     balance                  = float(miner_info["vesting_shares"][:-5])
     total_balance            = round(((total_vesting_fund_steem / total_vesting_shares) * balance), 3)
     all_steem                = all_steem + total_balance
-    print("<b>%s</b> votes: %s<BR>" % (miner, witness_info["votes"]))
+    print("<b>%s</b> votes: %s M<BR>" % (miner, round((float(witness_info["votes"])/1000000000000),1)))
     print("Last block signed: %s<BR>" % witness_info["last_confirmed_block_num"])
     print("%s | %s | %s<br><BR>" % (total_balance , miner_info["balance"], miner_info["sbd_balance"]))
   except :
     print("<b>%s</b> has not been mined yet.<BR><BR>" % miner)
 
-print("Head Block: %s <BR>"%chain_info["head_block_number"])
-print("Total STEEM: %s" % all_steem)
+print("Total STEEM: %s" % round(all_steem, 3))
 
 print("</td><td valign='top' width=200><b>Mining Queue:</b><BR><BR>")
 for miner in miners:
@@ -61,7 +60,7 @@ for miner in miners:
     else:
       position = position + 1
   if is_in_queue == 0:
-    print("NA : %s<BR>" % (miner)) 
+    print("-- : %s<BR>" % (miner)) 
 print("</td>")
 
 outvotes = {}
@@ -126,4 +125,6 @@ for k,v in invotes.items():
   if v[0] == False:
     print("%s. %s<BR>" % (i,k))
     i = i + 1
+print("</td></table></body></html>")
+print("<BR>Head Block: %s <BR>"%chain_info["head_block_number"])
 print("<meta http-equiv='Refresh' content='10'>")
