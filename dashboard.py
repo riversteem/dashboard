@@ -93,15 +93,18 @@ while stopsearch == False:
          invotes[vote['account']] = [vote['approve'],i]
 
 
- if transactions[0][0] == 0:
-   stopsearch = True
- else:
-   try:
-     startfrom = transaction[0][0]
-     if limit > startfrom:
-       limit = startfrom
-   except:
+ try:
+   if transactions[0][0] == 0:
      stopsearch = True
+   else:
+     try:
+       startfrom = transaction[0][0]
+       if limit > startfrom:
+         limit = startfrom
+     except:
+       stopsearch = True
+ except:
+   stopsearch = True
  i = i + 1
 
 i=1
