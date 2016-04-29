@@ -11,12 +11,11 @@ class Config():
 
 client = SteemClient(Config)
 
-account = "riverhead"
-miners = ["riverhead","riverhead2","riverhead3","riverhead4","riverhead5","mecon", "jamesreidy", "riversteem", "steemhead"]
-#os.system('clear')
+account = "Your Account"
+miners = ["list", "of", "miners"]
+
 print("<HTML><BODY style='background-color:lightgrey;'><table border='1' cellpadding='10'>")
 print("<td valign='top' ><b>Active Witnesses:</b><BR><BR>")
-
 
 active_witnesses = client.rpc.get_active_witnesses()
 for witness in sorted(active_witnesses):
@@ -66,7 +65,7 @@ stopsearch = False
 startfrom = -1
 limit = 1000
 i = 1
-#os.system('clear')
+
 while stopsearch == False:
  transactions = client.rpc.get_account_history(account,startfrom,limit)
  for transaction in transactions:
@@ -97,9 +96,12 @@ while stopsearch == False:
  if transactions[0][0] == 0:
    stopsearch = True
  else:
-   startfrom = transaction[0][0]
-   if limit > startfrom:
-     limit = startfrom
+   try:
+     startfrom = transaction[0][0]
+     if limit > startfrom:
+       limit = startfrom
+   except:
+     stopsearch = True
  i = i + 1
 
 i=1
