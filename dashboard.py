@@ -52,6 +52,7 @@ print("Total STEEM: %s" % round(all_steem, 3))
 print("</td><td valign='top' width=200><b>Mining Queue:</b><BR><BR>")
 for miner in miners:
   is_in_queue = 0
+  position = 0
   for m in miner_queue:
     if m == miner :
       is_in_queue = 1
