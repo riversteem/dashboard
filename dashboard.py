@@ -20,7 +20,10 @@ print("<td valign='top' ><b>Active Witnesses:</b><BR><BR>")
 
 active_witnesses = client.rpc.get_active_witnesses()
 for witness in sorted(active_witnesses):
-    print("%s<BR>" % witness)
+    if witness in miners:
+      print("<b>%s</b><BR>" % witness)
+    else:
+      print("%s<BR>" % witness)
 
 print("</td><td valign='top' width=275><b>Miners and Witnesses:</b><BR><BR>")
 
@@ -47,18 +50,13 @@ for miner in miners:
 print("Total STEEM: %s" % round(all_steem, 3))
 
 print("</td><td valign='top' width=150><b>Mining Queue:</b><BR><BR>")
-for miner in miners:
-  is_in_queue = 0
-  position = 0
-  for m in miner_queue:
-    if m == miner :
-      is_in_queue = 1
-      print("<b>%d : %s</b><BR>" % (position, miner ))
-      position = position + 1
-    else:
-      position = position + 1
-  if is_in_queue == 0:
-    print("-- : %s<BR>" % (miner)) 
+position = 1
+for m in miner_queue:
+  if m in miners:
+    print("<b>%d : %s</b><BR>" % ( position, m ))
+    position = position + 1
+  else:
+    position = position + 1
 print("</td>")
 
 outvotes = {}
@@ -105,13 +103,13 @@ while stopsearch == False:
  i = i + 1
 
 i=1
-print("<td valign='top' width=150><b>You Vote For:</b><BR><BR>")
+print("<td valign='top' width=150><b>You Support:</b><BR><BR>")
 for k,v in sorted(outvotes.items()):
   print("%s. %s<BR>" % (i, k))
   i = i + 1
 
 i=1
-print("</td><td valign='top' width=150><b>Votes For You:</b><BR><BR>")
+print("</td><td valign='top' width=150><b>Supports You:</b><BR><BR>")
 for k,v in sorted(invotes.items()):
   if v[0] == True:
     print("%s. %s<BR>" % (i,k))
