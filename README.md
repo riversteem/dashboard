@@ -1,5 +1,10 @@
 # dashboard
 
+**Based on the "show who's voting for me" script written by "pharesim". Please vote for his witness!
+
+http://steemd.com/@pharesim**
+
+
 Run:
 -----------
 
