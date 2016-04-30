@@ -5,14 +5,14 @@ import os
 class Config():
  # Port and host of the RPC-HTTP-Endpoint of the wallet
  wallet_host           = "127.0.0.1"
- wallet_port           = 8091
+ wallet_port           = 8092
  # Websocket URL to the full node
  witness_url           = "ws://localhost:8090"
 
 client = SteemClient(Config)
 
 account = "riverhead" # Account to track votes for
-miners = ["riverhead","riverhead2","riverhead3","riverhead4","riverhead5","mecon", "jamesreidy", "riversteem"]
+miners = ["riverhead","riverhead2","riverhead3","riverhead4","riverhead5","mecon", "jamesreidy", "riversteem", "steemhead"]
 
 print("<HTML><BODY style='background-color:lightgrey;'><table border='1' cellpadding='10'>")
 print("<td valign='top' ><b>Active Witnesses:</b><BR><BR>")
@@ -110,8 +110,9 @@ while stopsearch == False:
 i=1
 print("<td valign='top' width=150><b>You Support:</b><BR><BR>")
 for k,v in sorted(outvotes.items()):
-  print("%s. %s<BR>" % (i, k))
-  i = i + 1
+  if v[0] == True:
+    print("%s. %s<BR>" % (i, k))
+    i = i + 1
 
 i=1
 print("</td><td valign='top' width=150><b>Supports You:</b><BR><BR>")
