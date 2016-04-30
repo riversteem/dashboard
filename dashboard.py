@@ -11,8 +11,8 @@ class Config():
 
 client = SteemClient(Config)
 
-account = "Your Account"
-miners = ["list", "of", "miners"]
+account = "riverhead" # Account to track votes for
+miners = ["riverhead","riverhead2","riverhead3","riverhead4","riverhead5","mecon", "jamesreidy", "riversteem"]
 
 print("<HTML><BODY style='background-color:lightgrey;'><table border='1' cellpadding='10'>")
 print("<td valign='top' ><b>Active Witnesses:</b><BR><BR>")
@@ -122,7 +122,7 @@ for k,v in sorted(invotes.items()):
 
 i=1
 print("</td><td valign='top'><b>No Longer Supports You:</b><BR><BR>")
-for k,v in invotes.items():
+for k,v in sorted(invotes.items()):
   if v[0] == False:
     print("%s. %s<BR>" % (i,k))
     i = i + 1
