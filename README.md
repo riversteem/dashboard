@@ -13,11 +13,13 @@ Adjust monitor.sh to suit your environment.
 Requires Xeroc's STEEM libraries: https://github.com/xeroc/python-steemlib
 
 Todo list:
-- move parameters to a .json file
-- implement each category as a function that can be turned on and off
+- Move parameters to a .json file
+- Implement each category as a function that can be turned on and off
 - ~~Sort votes so the list order remains constant~~
 - Sort Witness lists so the order is ranked by votes
-- include standby witnesses in list and make list numbered
+- Include standby witnesses in list and make list numbered
+- Add email notifications for missed blocks by tracked witness
+- Telegram integration
 
 Known Bugs:
 - Crash reported on account with greater than 1000 transactions (dele-puppy)
