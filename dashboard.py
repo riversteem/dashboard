@@ -1,6 +1,8 @@
 from steemapi.steemclient import SteemClient
 import time
 import os
+import json
+
 
 class Config():
  # Port and host of the RPC-HTTP-Endpoint of the wallet
@@ -11,18 +13,34 @@ class Config():
 
 client = SteemClient(Config)
 
-account = "riverhead" # Account to track votes for
-miners = ["riverhead","riverhead2","riverhead3","riverhead4","riverhead5","mecon", "jamesreidy", "riversteem", "steemhead"]
+account = " "  # Account to track votes for
+miners = [accont, " "] # Comma seperated list of miners and witnesses you want to track
 
 print("<HTML><BODY style='background-color:lightgrey;'><table border='1' cellpadding='10'>")
-print("<td valign='top' ><b>Active Witnesses:</b><BR><BR>")
+print("<td valign='top' width = 225><b>Active Witnesses:</b><BR><BR>")
 
 active_witnesses = client.rpc.get_active_witnesses()
-for witness in sorted(active_witnesses):
-    if witness in miners:
-      print("<b>%s</b><BR>" % witness)
-    else:
-      print("%s<BR>" % witness)
+
+witness_list = []
+
+for witness in active_witnesses:
+
+    w = client.rpc.get_witness(witness)
+    w_vote_count = round((float(w["votes"])/1000000000000),1)
+
+    witness_list.append(list([witness, w_vote_count]))
+
+i=0
+
+witness_list.sort(key=lambda tup: tup[1])
+witness_list.reverse()
+
+for w in witness_list:
+ if witness_list[i][0] in miners:
+   print("<table border='0'><td>{0:n}</td><td halign='left' width=125>{1:s}</td><td>{2:12,.0f}</td></table>".format(i+1, witness_list[i][0], witness_list[i][1]))
+ else:
+   print("<table border='0'><td halign='right' width=24>{0:n}</td><td halign='left' width=125>{1:s}</td><td>{2:12,.0f}</td></table>".format(i+1, witness_list[i][0], witness_list[i][1]))
+ i = i + 1
 
 print("</td><td valign='top' width=275><b>Miners and Witnesses:</b><BR><BR>")
 
@@ -40,9 +58,9 @@ for miner in miners:
     balance                  = float(miner_info["vesting_shares"][:-5])
     total_balance            = round(((total_vesting_fund_steem / total_vesting_shares) * balance), 3)
     all_steem                = all_steem + total_balance
-    print("<b>%s</b> votes: %s M<BR>" % (miner, round((float(witness_info["votes"])/1000000000000),1)))
+    print("<b>{0:s}</b> votes: {1:12,.0f} M<BR>".format(miner, round((float(witness_info["votes"])/1000000000000),1)))
     print("Last block signed: %s<BR>" % witness_info["last_confirmed_block_num"])
-    print("%s | %s | %s<br><BR>" % (total_balance , miner_info["balance"], miner_info["sbd_balance"]))
+    print("Vests %s Missed: %s<BR><BR>" % (total_balance , witness_info["total_missed"]))
   except :
     print("<b>%s</b> has not been mined yet.<BR><BR>" % miner)
 
