@@ -13,8 +13,8 @@ class Config():
 
 client = SteemClient(Config)
 
-account = " "  # Account to track votes for
-miners = [accont, " "] # Comma seperated list of miners and witnesses you want to track
+account = ""  # Account to track votes for
+miners = [""] #Comma seperated list ["a","b","c"]
 
 print("<HTML><BODY style='background-color:lightgrey;'><table border='1' cellpadding='10'>")
 print("<td valign='top' width = 225><b>Active Witnesses:</b><BR><BR>")
@@ -37,7 +37,7 @@ witness_list.reverse()
 
 for w in witness_list:
  if witness_list[i][0] in miners:
-   print("<table border='0'><td>{0:n}</td><td halign='left' width=125>{1:s}</td><td>{2:12,.0f}</td></table>".format(i+1, witness_list[i][0], witness_list[i][1]))
+   print("<table border='0'><td halign='right' width=24>{0:n}</td><td halign='left' width=125><b>{1:s}</b></td><td>{2:12,.0f}</td></table>".format(i+1, witness_list[i][0], witness_list[i][1]))
  else:
    print("<table border='0'><td halign='right' width=24>{0:n}</td><td halign='left' width=125>{1:s}</td><td>{2:12,.0f}</td></table>".format(i+1, witness_list[i][0], witness_list[i][1]))
  i = i + 1
@@ -58,8 +58,9 @@ for miner in miners:
     balance                  = float(miner_info["vesting_shares"][:-5])
     total_balance            = round(((total_vesting_fund_steem / total_vesting_shares) * balance), 3)
     all_steem                = all_steem + total_balance
+    last_signed_age          = float(chain_info["head_block_number"]) - float(witness_info["last_confirmed_block_num"])
     print("<b>{0:s}</b> votes: {1:12,.0f} M<BR>".format(miner, round((float(witness_info["votes"])/1000000000000),1)))
-    print("Last block signed: %s<BR>" % witness_info["last_confirmed_block_num"])
+    print("Last block signed: %s | %s<BR>" % (witness_info["last_confirmed_block_num"], last_signed_age))
     print("Vests %s Missed: %s<BR><BR>" % (total_balance , witness_info["total_missed"]))
   except :
     print("<b>%s</b> has not been mined yet.<BR><BR>" % miner)
@@ -146,5 +147,5 @@ for k,v in sorted(invotes.items()):
     print("%s. %s<BR>" % (i,k))
     i = i + 1
 print("</td></table></body></html>")
-print("<BR>Head Block: %s <BR>"%chain_info["head_block_number"])
+print("<BR>Head Block: %s - Please consider voting for witness riverhead <BR>"%chain_info["head_block_number"])
 print("<meta http-equiv='Refresh' content='10'>")
